@@ -35,7 +35,7 @@ function App() {
 
 
   function onSearch(value) {
-    if (value?.label?.length) {
+    if (value?.label?.length >= 3) {
       setIsLoading(true);
       provider.search({ query: value.label }).then(res => {
         const options = res.map(r => ({ value: [r.y, r.x], label: r.label }));

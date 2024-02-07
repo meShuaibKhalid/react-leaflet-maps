@@ -13,15 +13,32 @@ export default function SearchComponent({ options, value, isLoading, onSubmit })
         if (options?.length) {
             setIsSearchBoxOpen(true);
         }
+        document.addEventListener('click', (e) => {
+            if (isSearchBoxOpen) {
+                if (!e.target.closest('.search-wrapper')) {
+                    setIsSearchBoxOpen(false);
+                }
+            }
+        })
     }, [options]);
 
-    function onSearch() {
+    function onSearch(e) {
+        let searchOptions = {};
+        if (e.target.value != undefined) {
+            searchOptions = { label: e.target.value, value: e.target.value };
+            setSelectedOption(searchOptions);
+        } 
+        if (!e.target.value.length) {
+            setIsSearchBoxOpen(false);
+            return;
+        }
         setIsSearchBoxOpen(true);
-        onSubmit(selectedOption);
+        onSubmit(searchOptions);
     }
 
     function selectionChange(option) {
         setIsSearchBoxOpen(false);
+        setSelectedOption(option);
         value(option);
     }
 
@@ -32,7 +49,7 @@ export default function SearchComponent({ options, value, isLoading, onSubmit })
 
     return (
         <div className='search-wrapper'>
-            <input type='search' placeholder='Search areas' value={selectedOption?.label} onChange={e => setSelectedOption({ label: e.target.value })} />
+            <input type='search' placeholder='Search areas' value={selectedOption?.label} onInput={onSearch} />
             <button type='button' onClick={onSearch}><i className='fa fa-search'></i></button>
             {isSearchBoxOpen ? <div className='options'>
                 <ul>

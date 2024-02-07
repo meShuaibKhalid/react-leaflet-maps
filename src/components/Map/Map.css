@@ -105,3 +105,10 @@
     white-space: nowrap;
   }
   
+  .leaflet-marker-icon.marker-cluster.marker-cluster-small.leaflet-zoom-animated.leaflet-interactive {
+    background-color: #e69b00;
+  }
+  .leaflet-marker-icon.marker-cluster.marker-cluster-small div {
+    background-color: #e69b00;
+    color: #fff !important;
+  }

@@ -1,6 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster'
 import { defaultIcon } from './util';
 import CustomPopup from './util';
 import data from './MOCK_DATA.json';
@@ -25,17 +26,19 @@ export default function Map({ options, customIcon }) {
             ref={mapEl}
         >
             <TileLayer url={options.tileLayerUrl} />
-            {data.map((driver, index) => (
-                <Marker
-                    key={index}
-                    position={[driver.location.lng, driver.location.lat]}
-                    icon={customIcon ? customIcon({ text: driver.driverName, image: driver.driverImage }) : defaultIcon}
-                >
-                    <Popup minWidth={300}>
-                        <CustomPopup driver={driver} />
-                    </Popup>
-                </Marker>
-            ))}
+            <MarkerClusterGroup polygonOptions={{ fillOpacity: 0, opacity: 0 }}>
+                {data.map((driver, index) => (
+                    <Marker
+                        key={index}
+                        position={[driver.location.lng, driver.location.lat]}
+                        icon={customIcon ? customIcon({ text: driver.driverName, image: driver.driverImage }) : defaultIcon}
+                    >
+                        <Popup minWidth={300}>
+                            <CustomPopup driver={driver} />
+                        </Popup>
+                    </Marker>
+                ))}
+            </MarkerClusterGroup>
         </MapContainer>
     )
 }
