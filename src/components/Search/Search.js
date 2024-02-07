@@ -24,7 +24,7 @@ export default function SearchComponent({ options, value, isLoading, onSubmit })
 
     function onSearch(e) {
         let searchOptions = {};
-        if (e.target.value != undefined) {
+        if (e.target.value !== undefined) {
             searchOptions = { label: e.target.value, value: e.target.value };
             setSelectedOption(searchOptions);
         } 
