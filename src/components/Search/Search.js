@@ -20,7 +20,7 @@ export default function SearchComponent({ options, value, isLoading, onSubmit })
                 }
             }
         })
-    }, [options]);
+    }, [options, isSearchBoxOpen]);
 
     function onSearch(e) {
         let searchOptions = {};
